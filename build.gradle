@@ -15,6 +15,8 @@ repositories {
 }
 
 dependencies {
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.15.0' // or the latest version
+    testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.15.0' // or the latest version
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.1'
     testImplementation 'com.codeborne:selenide:6.17.2'
 }
