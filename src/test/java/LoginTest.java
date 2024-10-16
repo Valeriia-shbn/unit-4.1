@@ -1,6 +1,7 @@
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,17 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 
+
+
 public class LoginTest {
+
+    @BeforeAll
+    public static void setUp() {
+        WebDriverManager.chromedriver().setup(); // Automatically sets up the latest ChromeDriver
+        Configuration.browser = "chrome";
+        Configuration.headless = true; // Enable headless mode
+    }
+
     public String generateDate() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -19,8 +30,6 @@ public class LoginTest {
     @Test
     public void shouldCompleteRegistration() {
 
-//        Configuration.browser = "chrome";
-//        Configuration.headless = true;
 
         open("http://localhost:9999");
 
