@@ -19,8 +19,8 @@ public class LoginTest {
     @Test
     public void shouldCompleteRegistration() {
 
-        Configuration.browser = "chrome";
-        Configuration.headless = true;
+//        Configuration.browser = "chrome";
+//        Configuration.headless = true;
 
         open("http://localhost:9999");
 
