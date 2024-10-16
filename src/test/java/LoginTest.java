@@ -9,7 +9,6 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 
-
 public class LoginTest {
     public String generateDate() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
@@ -21,6 +20,7 @@ public class LoginTest {
     public void shouldCompleteRegistration() {
 
         Configuration.browser = "chrome";
+        Configuration.headless = true;
 
         open("http://localhost:9999");
 
