@@ -1,5 +1,8 @@
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,23 +17,25 @@ public class LoginTest {
 
 
 
-    public String generateDate() {
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
+    public String generateDate(int addDays) {
+        LocalDate tomorrow = LocalDate.now().plusDays(addDays);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return tomorrow.format(formatter);
     }
 
     @Test
     public void shouldCompleteRegistration() {
-        Configuration.browser = "chrome";
-        Configuration.headless = true; // Enable headless mode
-
         open("http://localhost:9999");
 
+        String plannedDate = generateDate(5);
 
         $("input[placeholder='Город']").setValue("Екатеринбург");
 
-        $("input[placeholder='Дата встречи']").setValue(generateDate());
+        $("[data-test-id='date'] input").doubleClick();
+
+        $("[data-test-id='date'] input").sendKeys(Keys.DELETE);
+
+        $("[data-test-id='date'] input").setValue(plannedDate);
 
         $("input[name='name']").setValue("Валерия Шубина");
 
@@ -40,7 +45,9 @@ public class LoginTest {
 
         $(".button__text").click();
 
-        $("[data-test-id='notification']").shouldBe(visible, Duration.ofSeconds(30));
+        $("[data-test-id='notification']")
+                .shouldBe(visible, Duration.ofSeconds(30))
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + plannedDate));
 
     }
 
